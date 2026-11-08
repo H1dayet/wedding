@@ -1,0 +1,4 @@
+# local preview config and full-size originals; the site only serves the WebP files
+.claude/
+assets/src/
+assets/liner.webp

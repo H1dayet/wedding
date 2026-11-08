@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16302a">
+<title>Hidayat &amp; Jamila</title>
+<meta property="og:title" content="Hidayat &amp; Jamila · 15 may 2027">
+<meta property="og:description" content="Sizi toyumuza dəvət edirik.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/card.webp">
+<link rel="preload" as="image" href="assets/seal.webp">
+<link rel="preload" as="image" href="assets/envelope-pocket.webp">
+<link rel="preload" as="image" href="assets/flap-closed.webp">
+<link rel="stylesheet" href="style.css">
+
+<script>
+// ===== EDIT ONLY THIS BLOCK =====
+const U = (id, w, h) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&h=${h}&q=75`;
+const CONFIG = {
+  bride: 'Jamila',
+  groom: 'Hidayat',
+  brideParents: '',             // e.g. '… ailəsinin qızı', '' to hide
+  groomParents: '',             // e.g. '… ailəsinin oğlu', '' to hide
+  date: '2027-05-15T18:00:00+04:00',   // ISO, with your timezone offset
+  timeZone: 'Asia/Baku',               // how the date is displayed
+  greeting: 'İki ürək, bir əhd. Əbədiyyətimizin başladığı bu xoşbəxt günü bizimlə birlikdə qeyd etməyə sizi böyük sevinclə dəvət edirik.',
+  events: [
+    { title: 'Toy mərasimi', time: '18:00', place: 'Elux Events Hall', address: 'Bakı, Azərbaycan' },
+  ],
+  mapQuery: 'Elux Events Hall, Baku',  // what you'd type into Google Maps (not shown to guests)
+  closing: 'Sizin iştirakınız bizim üçün ən gözəl hədiyyədir. Bu xoşbəxt günü sizinlə birlikdə qeyd etməyi səbirsizliklə gözləyirik.',
+  // STOCK PLACEHOLDERS (Unsplash). Replace with your own, e.g. 'assets/cover.jpg'
+  photos: {
+    cover:   U('1532712938310-34cb3982ef74', 1080, 1920),
+    detail:  U('1684244276932-6ae853774c4d', 900, 1200),
+    bride:   U('1595467959776-8acfb0dc313f', 900, 1200),
+    groom:   U('1445117627052-274425469152', 900, 1200),
+    closing: U('1716813344739-51ac117d5ecc', 1080, 1600),
+  },
+  music: '',                            // e.g. 'assets/music.mp3'
+};
+</script>
+</head>
+<body class="locked">
+
+<!-- ===== Envelope gate ===== -->
+<div class="gate" id="gate">
+  <img class="gate-flora gf-1" src="assets/florals-corner.webp" alt="">
+  <img class="gate-flora gf-2" src="assets/florals-corner.webp" alt="">
+
+  <p class="gate-to">Əziz <strong id="guest">Qonaq</strong>sizi toyumuza dəvət edirik</p>
+
+  <div class="stage">
+    <img class="part env-back" src="assets/envelope-back.webp" alt="">
+
+    <div class="card">
+      <div class="card-body">
+        <p class="c-intro line" style="--d:0">Ailələrinin xeyir-duası ilə</p>
+        <p class="c-names"><span data-c="groom"></span><span class="c-amp">&amp;</span><span data-c="bride"></span></p>
+        <p class="c-req line" style="--d:1">sizi toy mərasimlərinə dəvət<br>etməkdən şərəf duyurlar</p>
+        <img class="c-orn line" style="--d:2" src="assets/ornament.webp" alt="">
+        <p class="c-date line" style="--d:3" data-c="dateLong"></p>
+        <p class="c-time line" style="--d:4" data-c="cardTime"></p>
+        <p class="c-place line" style="--d:5" data-c="venueLine"></p>
+      </div>
+    </div>
+
+    <img class="part env-pocket" src="assets/envelope-pocket.webp" alt="">
+    <div class="part env-flap">
+      <img class="flap-front" src="assets/flap-closed.webp" alt="">
+      <img class="flap-back" src="assets/flap-open.webp" alt="">
+    </div>
+
+    <button class="seal" id="seal" aria-label="Dəvətnaməni aç">
+      <img class="seal-half sh-l" src="assets/seal.webp" alt="">
+      <img class="seal-half sh-r" src="assets/seal.webp" alt="">
+    </button>
+  </div>
+
+  <p class="gate-hint">Açmaq üçün möhürə toxunun</p>
+  <button class="btn" id="enter">Davam et</button>
+</div>
+
+<div class="petals" aria-hidden="true"></div>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-img" data-photo="cover" alt="Sübh çağı təpədə əl-ələ tutub gəzən gəlin və bəy">
+    <div class="hero-shade"></div>
+    <p class="hero-kicker">Toy mərasimi</p>
+    <h1 class="names">
+      <span class="n1" data-c="groom"></span>
+      <span class="amp">&amp;</span>
+      <span class="n2" data-c="bride"></span>
+    </h1>
+    <p class="hero-date" data-c="dateLong"></p>
+    <img class="hero-orn" src="assets/ornament.webp" alt="">
+    <span class="scroll-line" aria-hidden="true"></span>
+  </section>
+
+  <!-- Greeting -->
+  <section class="greeting">
+    <img class="spray" src="assets/florals-spray.webp" alt="" loading="lazy">
+    <p class="verse" id="verse" data-c="greeting"></p>
+    <div class="detail-wrap">
+      <figure class="framed arch">
+        <div class="photo"><img data-photo="detail" alt="Ağ qızılgül buketinin üzərində nikah üzükləri taxılmış iki əl" loading="lazy"></div>
+        <img class="frame-art" src="assets/arch-frame.webp" alt="" loading="lazy">
+      </figure>
+      <img class="flora fl-left" src="assets/florals-corner.webp" alt="" loading="lazy">
+      <img class="flora fl-right" src="assets/florals-corner.webp" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <!-- Couple -->
+  <section class="couple">
+    <h2 class="title">Bəy və gəlin</h2>
+    <figure class="person">
+      <div class="framed wipe">
+        <div class="photo"><img data-photo="groom" alt="Bəyin yaxasına ağ butonyerka taxılır" loading="lazy"></div>
+        <img class="frame-art" src="assets/arch-frame.webp" alt="" loading="lazy">
+      </div>
+      <figcaption><span data-c="groom"></span><small data-c="groomParents"></small></figcaption>
+    </figure>
+    <img class="couple-amp" src="assets/divider-heart.webp" alt="" loading="lazy">
+    <figure class="person">
+      <div class="framed wipe">
+        <div class="photo"><img data-photo="bride" alt="Ağ çiçək və evkalipt buketi tutan gəlin" loading="lazy"></div>
+        <img class="frame-art" src="assets/arch-frame.webp" alt="" loading="lazy">
+      </div>
+      <figcaption><span data-c="bride"></span><small data-c="brideParents"></small></figcaption>
+    </figure>
+  </section>
+
+  <!-- Date -->
+  <section class="date">
+    <h2 class="title">Tarixi yadda saxlayın</h2>
+    <div class="cal">
+      <p class="cal-head" data-c="monthYear"></p>
+      <div class="cal-grid" id="cal"></div>
+    </div>
+    <div class="timer" id="timer" aria-live="off">
+      <div><b id="d">0</b><span>gün</span></div>
+      <div><b id="h">00</b><span>saat</span></div>
+      <div><b id="m">00</b><span>dəqiqə</span></div>
+      <div><b id="s">00</b><span>saniyə</span></div>
+    </div>
+  </section>
+
+  <!-- Venue -->
+  <section class="venue">
+    <h2 class="title">Nə vaxt və harada</h2>
+    <p class="v-day" data-c="dateLong"></p>
+    <div id="events"></div>
+    <div class="framed map arch">
+      <div class="photo"><iframe id="map" title="Məkanın xəritəsi" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <img class="frame-art" src="assets/arch-frame.webp" alt="" loading="lazy">
+    </div>
+    <a class="btn" id="directions" target="_blank" rel="noopener">Marşrutu göstər</a>
+  </section>
+
+  <!-- Closing -->
+  <section class="closing">
+    <img class="closing-img" data-photo="closing" alt="Qızılı gün batımı fonunda birləşmiş əllər" loading="lazy">
+    <div class="closing-shade"></div>
+    <div class="closing-text">
+      <img class="spray" src="assets/florals-spray.webp" alt="" loading="lazy">
+      <p class="thanks">Təşəkkürlər</p>
+      <p data-c="closing"></p>
+      <p class="sig" data-c="couple"></p>
+    </div>
+  </section>
+  <footer><span data-c="initials"></span> · <span data-c="dateDots"></span></footer>
+</main>
+
+<button class="music" id="music" aria-label="Musiqini dayandır" hidden>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3Zm11-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3Z"/></svg>
+</button>
+<audio id="audio" loop preload="none"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
