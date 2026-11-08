@@ -1,336 +1,224 @@
 :root {
   --green-950: oklch(0.21 0.035 165);
   --green-900: oklch(0.27 0.045 165);
-  --green-800: oklch(0.33 0.05 165);
-  --mist: oklch(0.84 0.03 160);          /* muted text on green */
+  --green-700: oklch(0.40 0.06 160);
+  --mist: oklch(0.86 0.03 160);          /* muted text on green */
   --ivory: oklch(0.975 0.006 150);
   --ivory-2: oklch(0.935 0.014 150);
-  --ink: oklch(0.24 0.03 165);
-  --ink-2: oklch(0.40 0.03 165);
-  --brass: oklch(0.80 0.10 82);          /* on green */
-  --brass-deep: oklch(0.50 0.09 72);     /* on ivory */
-  --blush: oklch(0.90 0.04 15);
+  --ink: oklch(0.26 0.035 165);
+  --ink-2: oklch(0.42 0.03 165);
+  --rose: oklch(0.56 0.09 10);           /* dusty rose accent, on ivory */
+  --blush: oklch(0.88 0.05 15);
+  --veil: oklch(0.975 0.006 150 / .86);
 
   --script: 'Pinyon Script', cursive;
-  --serif: 'Libre Bodoni', 'Didot', Georgia, serif;   /* has ə/Ə, which Bodoni Moda lacks */
+  --serif: 'Libre Bodoni', 'Didot', Georgia, serif;   /* has ə/Ə */
   --ease-out: cubic-bezier(.16, 1, .3, 1);
   --ease-io: cubic-bezier(.65, 0, .35, 1);
+  --col: min(100vw, 480px);              /* page column; the garden is fixed to it */
 
-  --paper: url(assets/paper-emerald.webp) 0 0 / 512px;
-  --foil: url(assets/foil.webp) center / 240px;
-
+  --z-scene: 0;
+  --z-page: 1;
   --z-petals: 5;
   --z-music: 6;
+  --z-gategate: 9;
   --z-gate: 10;
 }
 
 * { box-sizing: border-box; margin: 0; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  background: var(--paper), var(--green-950);
+  background: var(--green-950);
   color: var(--ink);
   font: 400 1.0625rem/1.65 var(--serif);
   -webkit-font-smoothing: antialiased;
 }
 body.locked { overflow: hidden; height: 100svh; }
 img { display: block; max-width: 100%; }
-figure img, .hero-img, .closing-img { width: 100%; height: 100%; object-fit: cover; }
 button { font: inherit; color: inherit; }
 h1, h2 { font-weight: 400; text-wrap: balance; }
 
-/* =================== Buttons: gold foil, engraved double rule =================== */
 .btn {
-  position: relative; isolation: isolate; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center;
-  min-width: 230px; padding: 19px 34px;
-  background: var(--foil), var(--brass);
-  color: var(--green-950); border: 0; border-radius: 3px;
-  font: 600 .74rem/1 var(--serif); letter-spacing: .26em; text-transform: uppercase; padding-left: calc(34px + .26em);
-  text-decoration: none; cursor: pointer;
-  text-shadow: 0 1px 0 oklch(1 0 0 / .45);
-  box-shadow: 0 10px 24px -8px rgb(0 0 0 / .5), inset 0 1px 0 oklch(1 0 0 / .35), inset 0 -1px 0 oklch(0.4 0.08 70 / .35);
-  transition: transform .4s var(--ease-out), box-shadow .4s var(--ease-out);
+  min-width: 220px; padding: 17px 32px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--green-900); color: var(--ivory);
+  font: 600 .74rem/1 var(--serif); letter-spacing: .24em; text-transform: uppercase; padding-left: calc(32px + .24em);
+  text-decoration: none;
+  box-shadow: 0 14px 30px -12px oklch(0.21 0.035 165 / .6), inset 0 1px 0 oklch(1 0 0 / .12);
+  transition: transform .4s var(--ease-out);
 }
-.btn::before {   /* engraved inner rule */
-  content: ''; position: absolute; inset: 5px; z-index: -1; border-radius: 1px;
-  border: 1px solid oklch(0.32 0.05 165 / .45);
-  box-shadow: 0 1px 0 oklch(1 0 0 / .3);
-}
-.btn::after {    /* light sweeping across the foil */
-  content: ''; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(105deg, transparent 35%, oklch(1 0 0 / .55) 50%, transparent 65%) no-repeat;
-  background-size: 250% 100%; background-position: 150% 0;
-  animation: sheen 4.5s var(--ease-io) infinite;
-}
-.btn:active { transform: translateY(1px) scale(.985); box-shadow: 0 4px 10px -4px rgb(0 0 0 / .5); }
-.btn.ghost { background: transparent; color: var(--brass); text-shadow: none; box-shadow: inset 0 0 0 1px var(--brass); }
-.btn.ghost::before { border-color: oklch(0.8 0.1 82 / .4); box-shadow: none; }
-.btn.ghost::after { display: none; }
-@keyframes sheen { 0%, 55% { background-position: 150% 0; } 100% { background-position: -60% 0; } }
+.btn:active { transform: scale(.97); }
+.btn.light { background: var(--ivory); color: var(--green-950); box-shadow: 0 16px 34px -10px rgb(0 0 0 / .6); }
 
-.title { font: 400 clamp(2.9rem, 13vw, 3.5rem)/1.15 var(--script); }
-.title::after {
-  content: ''; display: block; width: 170px; height: 35px; margin: 4px auto 0;
-  background: url(assets/ornament.webp) center / contain no-repeat;
+.title { font: 400 clamp(2.8rem, 12.5vw, 3.4rem)/1.15 var(--script); color: var(--green-700); }
+.title::after {   /* small watercolor spray under each heading */
+  content: ''; display: block; width: 150px; height: 58px; margin: 0 auto;
+  background: url(assets/florals-spray.webp) center / contain no-repeat;
 }
 
-/* =================== Envelope gate =================== */
-.gate {
-  position: fixed; inset: 0; z-index: var(--z-gate); overflow: hidden;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
-  padding: 24px 16px; text-align: center; color: var(--ivory);
-  background: radial-gradient(ellipse 85% 65% at 50% 46%, transparent 30%, oklch(0.15 0.03 165 / .7)), var(--paper), var(--green-900);
-  transition: opacity 1s var(--ease-io), visibility 0s 1s;
+/* =================== The garden (fixed) =================== */
+.scene {
+  position: fixed; top: 0; bottom: 0; left: 50%; width: var(--col); translate: -50% 0;
+  z-index: var(--z-scene); overflow: hidden; background: var(--ivory-2);
 }
-.gate.leave { opacity: 0; visibility: hidden; }
-.gate-flora { position: absolute; pointer-events: none; filter: drop-shadow(0 8px 14px rgb(0 0 0 / .35)); transition: transform 1.6s var(--ease-out), opacity 1.2s; }
-.gf-1 { left: -28%; bottom: -12%; width: 74%; max-width: 420px; }
-.gf-2 { right: -22%; top: -4%; width: 74%; max-width: 400px; transform: rotate(180deg); }
-.gate.s3 .gf-1 { transform: translate(-8%, 6%); }
-.gate.s3 .gf-2 { transform: rotate(180deg) translate(-8%, 6%); }
-.gate.leave .gf-1, .gate.leave .gf-2 { opacity: 0; }
+.scene-bg { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transform: scale(1.14); transform-origin: 50% 62%; }
+.revealing .scene-bg { transform: scale(1); transition: transform 3.4s var(--ease-out) 1.2s; }
 
-.gate-to { position: relative; color: var(--mist); font-style: italic; transition: opacity .6s; }
-.gate-to strong { display: block; font: 400 2.3rem/1.25 var(--script); color: var(--ivory); font-style: normal; }
-.gate-hint { position: relative; z-index: 1; text-shadow: 0 1px 6px oklch(0.15 0.03 165), 0 0 2px oklch(0.15 0.03 165); font-size: .7rem; letter-spacing: .34em; text-transform: uppercase; color: var(--brass); padding-left: .34em; transition: opacity .5s; animation: breathe 2.6s ease-in-out infinite; }
-@keyframes breathe { 50% { opacity: .45; } }
-.gate.s1 .gate-hint, .gate.s2 .gate-to { opacity: 0; animation: none; }
-#enter {
-  position: absolute; bottom: max(7svh, 36px);
-  opacity: 0; translate: 0 14px; pointer-events: none;
-  transition: opacity .9s var(--ease-out) .5s, translate .9s var(--ease-out) .5s, transform .4s var(--ease-out);
+.floral-gate {
+  position: fixed; top: 0; bottom: 0; left: 50%; width: var(--col); height: 100%; translate: -50% 0;
+  z-index: var(--z-gategate); object-fit: cover; pointer-events: none;
 }
-.gate.s4 #enter { opacity: 1; translate: 0 0; pointer-events: auto; }
+/* curtains clear by ~2.2s; the arch holds a beat, then the camera flies through it */
+.revealing .floral-gate { transform: scale(2.8); opacity: 0; transition: transform 2.2s var(--ease-io) 1.7s, opacity 1.1s ease 2.6s; }
 
-/* ----- the envelope: 4 image layers (back, pocket, closed flap, open flap) + the card + the seal ----- */
-.stage {
-  --ew: min(80vw, 320px);
-  --rise: calc(var(--ew) * -.72);
-  --drop: calc(var(--ew) * .62);
-  --flap: 46%;   /* flap art is 40% tall natively; stretched so its tip covers the pocket's V (apex at 45%) */
-  position: relative; width: var(--ew); height: calc(var(--ew) / .75);
+/* =================== Cover: curtains =================== */
+.gate { position: fixed; inset: 0; z-index: var(--z-gate); overflow: hidden; }
+.curtain {
+  position: absolute; top: 0; height: 100%; width: 57%;
+  object-fit: cover; object-position: 100% 50%;
+  filter: drop-shadow(0 0 18px rgb(0 0 0 / .45));
+  transition: translate 2s var(--ease-io) .25s, scale 2s var(--ease-io) .25s;
 }
-.stage > * { position: absolute; }
-/* parts move with `translate` so the flap's `scale` flip composes with it */
-.part { transition: translate 1.1s var(--ease-io), opacity .9s ease; }
-.env-back { inset: 0; width: 100%; height: 100%; filter: drop-shadow(0 30px 30px rgb(0 0 0 / .5)); }
-.env-pocket { inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; }
-/* The flap folds open in 2D: scaleY 1 -> -1 around its top edge, swapping to the lined side at the midpoint.
-   (A real rotateX + backface-visibility flip froze rendering in testing; this looks the same on a phone.) */
-.env-flap { top: 0; left: 0; width: 100%; height: var(--flap); z-index: 4; transform-origin: top; }
-.flap-front, .flap-back { position: absolute; inset: 0; width: 100%; height: 100%; }
-.flap-front { filter: drop-shadow(0 4px 5px rgb(0 0 0 / .45)); }
-.flap-back { opacity: 0; transform: scaleY(-1); }   /* pre-flipped: the parent's flip turns it back upright */
-@keyframes flap-open { 0% { scale: 1 1; filter: brightness(1); } 50% { filter: brightness(.6); } 100% { scale: 1 -1; filter: brightness(1); } }
-@keyframes face-out { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
-@keyframes face-in { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
-
-.seal {
-  z-index: 5; left: 50%; top: var(--flap); width: 34%; aspect-ratio: 360 / 370;
-  translate: -50% -50%; padding: 0; border: 0; background: none; cursor: pointer;
-  filter: drop-shadow(0 5px 6px rgb(0 0 0 / .5));
-  transition: scale .3s var(--ease-out);
+.curtain-l { left: 0; transform-origin: 0 50%; }
+.curtain-r { right: 0; transform: scaleX(-1); }   /* mirrored copy (flipped around its own center) */
+.gate-swag {
+  position: absolute; top: -2%; left: 50%; width: max(118%, 560px); translate: -50% 0; max-width: none;
+  filter: drop-shadow(0 10px 14px rgb(0 0 0 / .35));
+  transition: translate 1.8s var(--ease-io) .2s, opacity 1.2s ease .6s;
 }
-.seal:active { scale: .95; }
-.seal::before {
-  content: ''; position: absolute; inset: -14%; border-radius: 50%;
-  border: 1px solid var(--brass); animation: ping 2.4s var(--ease-out) infinite;
+.cover {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  padding: 18svh 20px 6svh; text-align: center; color: var(--ivory);
+  background: radial-gradient(ellipse 70% 45% at 50% 50%, oklch(0.18 0.035 165 / .55), transparent 70%);
+  transition: opacity .7s ease, scale .9s var(--ease-out);
 }
-@keyframes ping { from { scale: .75; opacity: .9; } to { scale: 1.35; opacity: 0; } }
-.seal-half { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform .8s var(--ease-out), opacity .8s ease .1s; }
-.sh-l { clip-path: polygon(0 0, 53% 0, 47% 20%, 56% 38%, 45% 57%, 55% 76%, 49% 100%, 0 100%); }
-.sh-r { clip-path: polygon(53% 0, 100% 0, 100% 100%, 49% 100%, 55% 76%, 45% 57%, 56% 38%, 47% 20%); }
+.wreath { position: relative; width: min(82vw, 360px); aspect-ratio: 930 / 917; }
+.wreath > img { width: 100%; height: 100%; }
+.wreath-text { position: absolute; inset: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.cover .wreath > img { filter: drop-shadow(0 8px 16px rgb(0 0 0 / .35)); }
+.cover .wreath-text { inset: 25% 24%; }
+.cover-names { display: flex; flex-direction: column; font: 400 clamp(2.2rem, 10.5vw, 2.9rem)/1 var(--script); text-shadow: 0 2px 12px rgb(0 0 0 / .5); }
+.cover-names .amp { font: italic 400 .42em/1.2 var(--serif); color: var(--blush); }
+.cover-date { margin-top: -8px; font-size: .8rem; letter-spacing: .34em; color: var(--blush); padding-left: .34em; text-shadow: 0 1px 8px rgb(0 0 0 / .6); }
+.cover-to { font-style: italic; color: var(--mist); text-shadow: 0 1px 10px rgb(0 0 0 / .6); }
+.cover-to strong { display: block; font: 400 2.2rem/1.25 var(--script); font-style: normal; color: var(--ivory); }
 
-.card {
-  z-index: 1; left: 4%; top: 3%; width: 92%; aspect-ratio: 811 / 1094;
-  container-type: inline-size;
-  background: url(assets/card.webp) center / 100% 100% no-repeat;
-  filter: drop-shadow(0 12px 18px rgb(0 0 0 / .4));
-  transition: transform 1.2s var(--ease-io), opacity .9s ease, filter .9s ease;
-}
-.card-body {
-  position: absolute; inset: 22% 10% 8%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: var(--ink); text-align: center; line-height: 1.45;
-}
-.c-intro { font-size: 4.2cqw; font-style: italic; color: var(--ink-2); }
-.c-names { display: flex; flex-direction: column; font: 400 12.5cqw/1.02 var(--script); color: var(--brass-deep); margin: 1.5cqw 0 2cqw; }
-.c-names span { padding: 0 .2em; }
-.c-amp { font: italic 400 .42em/1.1 var(--serif); }
-.c-req { font-size: 3.9cqw; color: var(--ink-2); }
-.c-orn { width: 46%; margin: 2.5cqw 0 2cqw; }
-.c-date { font-size: 5cqw; font-weight: 600; letter-spacing: .02em; }
-.c-time { font-size: 4.4cqw; font-style: italic; color: var(--ink-2); }
-.c-place { font-size: 4.2cqw; margin-top: 1cqw; }
-.card .line { opacity: 0; translate: 0 8px; transition: opacity .9s var(--ease-out), translate .9s var(--ease-out); transition-delay: calc(var(--d) * 140ms); }
-
-/* ----- opening sequence: s1 crack + flap, s2 card rises, s3 card comes forward, s4 details ----- */
-.s1 .seal { pointer-events: none; }
-.s1 .seal::before { display: none; }
-.s1 .sh-l { transform: translate(-46%, 38%) rotate(-32deg); opacity: 0; }
-.s1 .sh-r { transform: translate(46%, 48%) rotate(26deg); opacity: 0; }
-.s1 .env-flap { z-index: 0; animation: flap-open 1s var(--ease-io) .3s both; transition: z-index 0s .8s, translate 1.1s var(--ease-io), opacity .9s ease; }
-.s1 .flap-front { animation: face-out 1s linear .3s both; }
-.s1 .flap-back { animation: face-in 1s linear .3s both; }
-
-.s2 .part { translate: 0 var(--drop); }
-.s2 .card { transform: translateY(var(--rise)); }
-
-.s3 .part { translate: 0 110svh; opacity: 0; }
-.s3 .card { z-index: 6; transform: translateY(-3%) scale(1.13); filter: drop-shadow(0 26px 34px rgb(0 0 0 / .5)); transition: transform 1.2s var(--ease-io), filter 1.2s ease, z-index 0s; }
-
-.s4 .card .line { opacity: 1; translate: 0 0; }
-.leave .card { transform: translateY(-3%) scale(1.45); opacity: 0; filter: blur(6px); transition: transform 1s var(--ease-io), opacity .8s ease, filter .8s ease; }
+.gate.open .cover { opacity: 0; scale: .92; }
+.gate.open .curtain-l { translate: -108% 0; scale: .78 1; }
+.gate.open .curtain-r { translate: 108% 0; scale: .78 1; }
+.gate.open .gate-swag { translate: -50% -110%; opacity: 0; }
 
 /* =================== Petals =================== */
 .petals { position: fixed; inset: 0; z-index: var(--z-petals); pointer-events: none; overflow: hidden; }
-.petals span {
-  position: absolute; top: 0;
-  border-radius: 150% 0 150% 0;
-  background: linear-gradient(135deg, var(--ivory), var(--blush) 60%, oklch(0.75 0.08 15));
-  opacity: .85;
-  animation: fall linear infinite;
-}
+.petals img { position: absolute; top: 0; opacity: .9; animation: fall linear infinite; }
 @keyframes fall {
-  from { transform: translate3d(0, -8vh, 0) rotate3d(1, .6, .2, 0deg); }
-  to { transform: translate3d(var(--x), 108vh, 0) rotate3d(1, .6, .2, 900deg); }
+  from { transform: translate3d(0, -10vh, 0) rotate3d(1, .6, .2, 0deg); }
+  to { transform: translate3d(var(--x), 110vh, 0) rotate3d(1, .6, .2, 720deg); }
 }
 
-/* =================== Page frame =================== */
-main { max-width: 480px; margin: 0 auto; background: var(--ivory); overflow: clip; box-shadow: 0 0 60px rgb(0 0 0 / .45); }
-section { position: relative; padding: 96px 24px; text-align: center; }
+/* =================== Page (scrolls over the garden) =================== */
+main { position: relative; z-index: var(--z-page); max-width: 480px; margin: 0 auto; overflow: clip; }
+section { position: relative; padding: 88px 26px; text-align: center; }
 
-/* ---------- Hero ---------- */
-.hero {
-  height: 100svh; min-height: 600px; padding: 0; color: var(--ivory);
-  display: flex; flex-direction: column; align-items: center; overflow: hidden;
-  background: var(--green-900);
+/* ---------- Hero: the garden itself ---------- */
+.hero { height: 100svh; min-height: 620px; padding: 0; z-index: 2; }
+.hero-swag { position: absolute; top: -3%; left: 50%; width: 122%; max-width: none; translate: -50% 0; }
+.hero-text { position: relative; padding-top: max(19svh, 140px); }
+body:not(.revealed) .hero-text { visibility: hidden; }   /* written in after the opening, not glimpsed through the curtains */
+.kicker { font-size: .72rem; letter-spacing: .4em; text-transform: uppercase; color: var(--rose); padding-left: .4em; }
+.names { display: flex; flex-direction: column; font: 400 clamp(3.7rem, 19vw, 5.2rem)/1 var(--script); color: var(--green-700); margin-top: 6px; }
+.names .n1, .names .n2 { display: block; padding: .1em .35em .18em; }
+.names .amp { font: italic 400 .36em/1.3 var(--serif); color: var(--rose); }
+.hero-date { margin-top: 8px; font-style: italic; color: var(--ink-2); }
+/* overlaps into the next section; its straight cut-off bottom edge fades out so it never shows as a band */
+.hero-fg {
+  position: absolute; bottom: -90px; left: 50%; width: 150%; max-width: none; translate: -50% 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 96%); mask-image: linear-gradient(180deg, #000 62%, transparent 96%);
 }
-.hero-img { position: absolute; inset: 0; animation: kenburns 24s ease-in-out infinite alternate; }
-.hero-shade {
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg, oklch(0.21 0.035 165 / .8) 0%, oklch(0.21 0.035 165 / .35) 45%, transparent 62%),
-    linear-gradient(0deg, oklch(0.21 0.035 165 / .55), transparent 30%);
-}
-.hero-kicker { position: relative; margin-top: max(10svh, 64px); font-size: .75rem; letter-spacing: .42em; text-transform: uppercase; color: var(--brass); padding-left: .42em; }
-.names { position: relative; align-self: stretch; display: flex; flex-direction: column; font: 400 clamp(3.8rem, 20vw, 5.6rem)/1 var(--script); margin-top: 8px; }
-.names .n1, .names .n2 { display: block; padding: .12em .35em .2em; }
-.names .n1 { text-align: left; padding-left: 9%; }
-.names .n2 { text-align: right; padding-right: 9%; margin-top: -.2em; }
-.names .amp { position: absolute; right: 13%; top: 16%; font-size: .55em; color: var(--brass); }
-.hero-date { position: relative; margin-top: 10px; font-style: italic; font-size: 1.05rem; color: var(--ivory-2); }
-.hero-orn { position: relative; width: 150px; margin-top: 10px; }
-.scroll-line {
-  position: absolute; left: 50%; bottom: 22px; width: 1px; height: 52px; translate: -50% 0;
-  background: oklch(1 0 0 / .25); overflow: hidden;
-}
-.scroll-line::after { content: ''; position: absolute; inset: 0; background: var(--ivory); animation: scrollcue 2.2s var(--ease-io) infinite; }
-@keyframes kenburns { from { transform: scale(1.04); } to { transform: scale(1.16) translateY(-2%); } }
+.scroll-line { position: absolute; left: 50%; bottom: 20px; width: 1px; height: 48px; translate: -50% 0; background: oklch(0.26 0.035 165 / .2); overflow: hidden; }
+.scroll-line::after { content: ''; position: absolute; inset: 0; background: var(--green-700); animation: scrollcue 2.2s var(--ease-io) infinite; }
 @keyframes scrollcue { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
 
-/* Hero entrance plays once the guest continues past the card */
+/* names are written in, like ink, once the garden is revealed */
 .n1, .n2 {
-  -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
-  mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
-  -webkit-mask-size: 260% 100%; mask-size: 260% 100%;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%); mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
+  -webkit-mask-size: 260% 100%; mask-size: 260% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
   -webkit-mask-position: 0 0; mask-position: 0 0;
 }
-.revealed .n1 { animation: ink 1.8s var(--ease-io) .2s both; }
-.revealed .n2 { animation: ink 1.8s var(--ease-io) 1.1s both; }
-.revealed .amp { animation: rise 1s var(--ease-out) .9s both; }
-.revealed .hero-kicker, .revealed .hero-date, .revealed .hero-orn { animation: rise 1.2s var(--ease-out) both; }
-.revealed .hero-date { animation-delay: 2.1s; }
-.revealed .hero-orn { animation-delay: 2.4s; }
-@keyframes ink {
-  from { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
-  to { -webkit-mask-position: 0 0; mask-position: 0 0; }
-}
+.revealed .n1 { animation: ink 1.8s var(--ease-io) .1s both; }
+.revealed .n2 { animation: ink 1.8s var(--ease-io) 1s both; }
+.revealed .kicker, .revealed .names .amp, .revealed .hero-date { animation: rise 1.2s var(--ease-out) both; }
+.revealed .names .amp { animation-delay: .8s; }
+.revealed .hero-date { animation-delay: 2s; }
+@keyframes ink { from { -webkit-mask-position: 100% 0; mask-position: 100% 0; } to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } }
-@keyframes grow { from { clip-path: circle(0% at 0% 100%); } to { clip-path: circle(150% at 0% 100%); } }
 
-/* ---------- Greeting ---------- */
-.greeting { padding-top: 72px; }
-.spray { width: 74%; margin: 0 auto; }
-.verse { max-width: 30ch; margin: 16px auto 56px; font-size: 1.45rem; line-height: 1.5; font-style: italic; color: var(--ink); text-wrap: pretty; }
+/* ---------- Paper: a translucent veil so the garden glows through ---------- */
+.paper { background: linear-gradient(180deg, transparent, var(--veil) 140px, var(--veil) calc(100% - 140px), transparent); }
+.greeting { padding-top: 150px; }
+.spray { width: 72%; margin: 0 auto; }
+.verse { max-width: 30ch; margin: 18px auto 0; font-size: 1.4rem; line-height: 1.55; font-style: italic; text-wrap: pretty; }
 .verse .w { display: inline-block; }
-.detail-wrap { position: relative; margin-bottom: 48px; }
 
-/* ---------- Gold arch frame (arch-frame.webp) laid over a photo or the map ---------- */
-.framed { position: relative; width: 86%; margin: 0 auto; aspect-ratio: 772 / 1082; }
-.framed .photo {
-  position: absolute; inset: 6.5% 6.6% 2.8% 6.6%; overflow: hidden;
-  border-radius: 50% 50% 0 0 / 23% 23% 0 0; background: var(--ivory-2);
-}
-.framed .photo img, .framed .photo iframe { display: block; width: 100%; height: 100%; object-fit: cover; border: 0; }
-.framed .frame-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; filter: drop-shadow(0 6px 10px oklch(0.21 0.035 165 / .25)); }
-.flora { position: absolute; bottom: -36px; width: 52%; pointer-events: none; }
-.fl-left { left: -12%; }
-.fl-right { right: -12%; transform: scaleX(-1); }
-
-/* ---------- Couple ---------- */
-.couple { padding: 88px 32px 104px; }
-.couple .title { color: var(--brass-deep); margin-bottom: 40px; }
+/* ---------- Couple: portraits inside the wreath ---------- */
+.couple .title { margin-bottom: 18px; }
 .person { margin: 0; }
-.person figcaption { margin-top: 14px; }
-.person figcaption span { display: block; font: 400 3.1rem/1.1 var(--script); color: var(--brass-deep); }
+.wreathed { position: relative; width: min(84%, 340px); aspect-ratio: 930 / 917; margin: 0 auto; }
+.wreathed .photo { position: absolute; inset: 19% 20% 21% 19%; border-radius: 50%; overflow: hidden; background: var(--ivory-2); box-shadow: 0 10px 30px -10px oklch(0.26 0.035 165 / .4); }
+.wreathed .photo img { width: 100%; height: 100%; object-fit: cover; }
+.wreathed .wreath-art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.person figcaption { margin-top: 2px; }
+.person figcaption span { display: block; font: 400 3rem/1.1 var(--script); color: var(--green-700); }
 .person figcaption small { display: block; margin-top: 4px; font-size: .95rem; font-style: italic; color: var(--ink-2); }
-.couple-amp { width: 74%; margin: 36px auto 40px; }
+.couple-amp { margin: 22px 0; font: italic 400 2.4rem/1 var(--serif); color: var(--rose); }
 
-/* ---------- Date ---------- */
-.date {
-  background: radial-gradient(ellipse at 50% 30%, transparent 40%, oklch(0.15 0.03 165 / .5)), var(--paper), var(--green-900);
-  color: var(--ivory);
-}
-.date .title { color: var(--brass); }
-.cal { max-width: 300px; margin: 26px auto 48px; }
-.cal-head { font-size: .8rem; letter-spacing: .35em; text-transform: uppercase; color: var(--mist); margin-bottom: 18px; padding-left: .35em; }
+/* ---------- Date: emerald band ---------- */
+.date { background: oklch(0.27 0.045 165 / .93); color: var(--ivory); margin: 40px 0; }
+.date .title { color: var(--blush); }
+.cal { max-width: 300px; margin: 18px auto 44px; }
+.cal-head { font-size: .8rem; letter-spacing: .35em; text-transform: uppercase; color: var(--mist); margin-bottom: 16px; padding-left: .35em; }
 .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 8px; font-variant-numeric: lining-nums tabular-nums; }
-.cal-grid .wd { font-size: .7rem; letter-spacing: .1em; color: var(--brass); text-transform: uppercase; padding-bottom: 6px; }
+.cal-grid .wd { font-size: .66rem; letter-spacing: .08em; color: var(--blush); text-transform: uppercase; padding-bottom: 6px; }
 .cal-grid span { position: relative; line-height: 2.1; font-size: .95rem; }
-.cal-grid .the-day { color: var(--brass); font-weight: 700; }
-/* brushed gold circle; --sweep paints it on as the calendar scrolls in (see scroll-driven block) */
-@property --sweep { syntax: '<angle>'; inherits: false; initial-value: 360deg; }
-.the-day img {
-  position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; max-width: none; translate: -50% -50%;
-  -webkit-mask: conic-gradient(from 200deg, #000 var(--sweep), transparent 0);
-  mask: conic-gradient(from 200deg, #000 var(--sweep), transparent 0);
-}
+.cal-grid .the-day { color: var(--green-950); font-weight: 700; }
+.the-day::before { content: ''; position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; translate: -50% -50%; border-radius: 50%; background: var(--blush); z-index: -1; }
+.cal-grid .the-day { z-index: 0; isolation: isolate; }
+.the-day svg { position: absolute; inset: -10px -8px; width: calc(100% + 16px); height: calc(100% + 20px); overflow: visible; }
+.the-day path { fill: none; stroke: var(--blush); stroke-width: 1.3; stroke-linecap: round; }
 .timer { display: flex; justify-content: center; }
 .timer div { flex: 1; max-width: 90px; overflow: hidden; }
-.timer div + div { border-left: 1px solid oklch(0.8 0.1 82 / .3); }
+.timer div + div { border-left: 1px solid oklch(0.88 0.05 15 / .3); }
 .timer b { display: block; font: 400 2.6rem/1.15 var(--serif); font-variant-numeric: lining-nums tabular-nums; }
 .timer span { font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--mist); }
 
 /* ---------- Venue ---------- */
-.venue .title { color: var(--brass-deep); }
-.v-day { font-style: italic; color: var(--ink-2); margin-top: 6px; }
-.event { margin: 28px 0 36px; }
-.event .e-title { font-size: .78rem; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-2); padding-left: .3em; }
+.v-day { font-style: italic; color: var(--ink-2); margin-top: 4px; }
+.event { margin: 26px 0 34px; }
+.event .e-title { font-size: .76rem; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); padding-left: .3em; }
 .event .e-time { font: 400 clamp(4rem, 22vw, 5.4rem)/1 var(--serif); letter-spacing: -.02em; margin: 6px 0 2px; font-variant-numeric: lining-nums; }
-.event .e-place { font: 400 2.6rem/1.2 var(--script); color: var(--brass-deep); }
+.event .e-place { font: 400 2.6rem/1.2 var(--script); color: var(--green-700); }
 .event .e-addr { color: var(--ink-2); }
-.map { width: 92%; margin-bottom: 30px; }
-.map iframe { filter: saturate(.7); }
+.map { height: 300px; margin-bottom: 30px; border-radius: 160px 160px 18px 18px; overflow: hidden; box-shadow: 0 20px 40px -20px oklch(0.26 0.035 165 / .5); border: 5px solid var(--ivory); }
+.map iframe { display: block; width: 100%; height: 100%; border: 0; filter: saturate(.75); }
 
-/* ---------- Closing ---------- */
-.closing { min-height: 92svh; padding: 0; display: flex; align-items: flex-end; color: var(--ivory); overflow: hidden; background: var(--green-950); }
-.closing-img { position: absolute; inset: 0; }
-.closing-shade { position: absolute; inset: 0; background: linear-gradient(0deg, oklch(0.21 0.035 165 / .94) 22%, oklch(0.21 0.035 165 / .25) 62%, transparent); }
-.closing-text { position: relative; padding: 0 28px 72px; width: 100%; }
-.closing .spray { width: 64%; margin-bottom: -6px; }
-.thanks { font: 400 clamp(3.6rem, 18vw, 5rem)/1.2 var(--script); color: var(--brass); white-space: nowrap; }
-.closing-text p:not(.thanks) { max-width: 32ch; margin: 12px auto 0; font-style: italic; text-wrap: pretty; }
-.closing .sig { font: 400 2.2rem/1.2 var(--script) !important; font-style: normal !important; margin-top: 24px !important; }
-footer { padding: 22px; text-align: center; font-size: .72rem; letter-spacing: .3em; color: var(--mist); background: var(--paper), var(--green-950); }
+/* ---------- Closing: back out into the garden ---------- */
+.closing { min-height: 100svh; padding: 15svh 22px 0; overflow: hidden; }
+.closing-wreath { margin: 0 auto; width: min(88vw, 380px); }
+.closing-wreath .wreath-text { inset: 24% 22%; }
+.thanks { font: 400 clamp(2rem, 9.6vw, 2.6rem)/1.1 var(--script); color: var(--green-700); white-space: nowrap; }
+.sig { margin-top: 6px; font: 400 1.3rem/1.2 var(--script); color: var(--rose); }
+.closing-note {
+  position: relative; z-index: 1; max-width: 32ch; margin: 18px auto 0; padding: 16px 20px; border-radius: 18px;
+  font-style: italic; background: var(--veil); text-wrap: pretty;
+}
+.closing-fg { position: absolute; bottom: -3%; left: 50%; width: 150%; max-width: none; translate: -50% 0; }
+footer { position: relative; padding: 22px; text-align: center; font-size: .72rem; letter-spacing: .3em; color: var(--mist); background: var(--green-950); }
 
 /* ---------- Music ---------- */
 .music {
   position: fixed; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); z-index: var(--z-music);
-  width: 50px; height: 50px; border-radius: 50%; border: 0; cursor: pointer;
-  background: var(--foil), var(--brass); color: var(--green-950);
-  box-shadow: 0 6px 18px rgb(0 0 0 / .35), inset 0 0 0 4px oklch(0.85 0.09 85 / .5), inset 0 0 0 5px oklch(0.4 0.07 70 / .4);
+  width: 48px; height: 48px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--green-900); color: var(--ivory); box-shadow: 0 6px 18px rgb(0 0 0 / .3);
   display: grid; place-items: center;
 }
 .music[hidden] { display: none; }
@@ -338,36 +226,37 @@ footer { padding: 22px; text-align: center; font-size: .72rem; letter-spacing: .
 .music.playing { animation: spin 5s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* =================== Scroll-driven motion (progressive enhancement) ===================
-   Browsers without scroll timelines simply show everything, fully visible. */
+/* =================== Scroll-driven motion (progressive enhancement) =================== */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .wipe { animation: wipe linear both; animation-timeline: view(); animation-range: entry 0% cover 42%; }
-    .wipe .photo img { animation: drift linear both; animation-timeline: view(); }
-    .arch { animation: reveal-arch linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
-    .arch .photo img { animation: drift linear both; animation-timeline: view(); }
-    .flora { animation: grow linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
+    /* depth: foreground flowers rise faster than the page, the hanging swag lifts away */
+    .hero-fg { animation: fg-rise linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    .hero-swag { animation: swag-lift linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+    .hero-text { animation: fade-up linear both; animation-timeline: view(); animation-range: exit 0% exit 70%; }
+    .closing-fg { animation: fg-settle linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    .closing-wreath { animation: bloom linear both; animation-timeline: view(); animation-range: entry 20% entry 100%; }
+    .wreathed { animation: bloom linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+    .wreathed .photo img { animation: drift linear both; animation-timeline: view(); }
     .verse .w { animation: word linear both; animation-timeline: view(); animation-range: cover calc(var(--i) * 1.4%) cover calc(18% + var(--i) * 1.4%); }
     .spray, .title { animation: grow-center linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
-    .the-day img { animation: sweep linear both; animation-timeline: view(); animation-range: entry 40% cover 55%; }
+    .the-day path { stroke-dasharray: 1; animation: draw linear both; animation-timeline: view(); animation-range: entry 40% cover 55%; }
     .event .e-time { animation: settle linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
-    .closing-img { animation: drift linear both; animation-timeline: view(); }
-    .thanks { animation: ink linear both; animation-timeline: view(); animation-range: entry 0% entry 100%;
-      -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%); mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
-      -webkit-mask-size: 260% 100%; mask-size: 260% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; padding: 0 .3em; }
   }
 }
-@keyframes wipe { from { clip-path: inset(100% 0 0 0 round 4px); } to { clip-path: inset(0 0 0 0 round 4px); } }
-@keyframes reveal-arch { from { scale: .82; opacity: .15; } to { scale: 1; opacity: 1; } }
-@keyframes drift { from { transform: scale(1.18) translateY(-6%); } to { transform: scale(1.18) translateY(6%); } }
+@keyframes fg-rise { to { transform: translateY(-18%); } }
+@keyframes fg-settle { from { transform: translateY(30%); } to { transform: none; } }
+@keyframes swag-lift { to { transform: translateY(-40%); opacity: .2; } }
+@keyframes fade-up { to { transform: translateY(-60px); opacity: 0; } }
+@keyframes bloom { from { scale: .78; opacity: .1; rotate: -8deg; } to { scale: 1; opacity: 1; rotate: 0deg; } }
+@keyframes drift { from { transform: scale(1.15) translateY(-5%); } to { transform: scale(1.15) translateY(5%); } }
 @keyframes word { from { opacity: .12; filter: blur(3px); } to { opacity: 1; filter: none; } }
 @keyframes grow-center { from { clip-path: inset(0 50% 0 50%); opacity: 0; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
-@keyframes sweep { from { --sweep: 0deg; } to { --sweep: 360deg; } }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes settle { from { letter-spacing: .2em; opacity: 0; } to { letter-spacing: -.02em; opacity: 1; } }
 
 /* =================== Reduced motion =================== */
 @media (prefers-reduced-motion: reduce) {
-  .petals, .scroll-line, .seal::before, .btn::after { display: none; }
-  .hero-img, .music.playing, .gate-hint, .revealed * { animation: none !important; }
-  .gate, .gate * { transition-duration: .2s !important; transition-delay: 0s !important; }
+  .petals, .scroll-line { display: none; }
+  .music.playing, .revealed * { animation: none !important; }
+  .gate, .gate *, .floral-gate, .scene-bg { transition-duration: .2s !important; transition-delay: 0s !important; }
 }

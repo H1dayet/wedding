@@ -19,8 +19,6 @@ const text = {
   dateDots: `${pad(dd)} · ${pad(mo)} · ${y}`,
   dateLong: `${cap(weekday)}, ${dd} ${MONTHS[mo - 1]} ${y}`,
   monthYear: `${MONTHS[mo - 1]} ${y}`,
-  cardTime: C.events[0] && C.events[0].time ? `Saat ${C.events[0].time}` : '',
-  venueLine: C.events[0] ? [C.events[0].place, C.events[0].address].filter(Boolean).join(' · ') : '',
 };
 document.querySelectorAll('[data-c]').forEach((el) => {
   const v = text[el.dataset.c];
@@ -44,43 +42,43 @@ if (verse) verse.replaceChildren(...verse.textContent.split(' ').flatMap((w, i) 
   return [s, ' '];
 }));
 
-// ---- Envelope open + music ----
+// ---- Opening: curtains part, camera flies through the floral arch into the garden ----
 const gate = $('#gate');
 const audio = $('#audio');
 const musicBtn = $('#music');
-// s1 seal cracks + flap opens, s2 card rises out, s3 envelope falls away + card comes forward, s4 card text + Continue
 function openInvite() {
-  if (gate.dataset.opened) return;
-  gate.dataset.opened = '1';
-  const at = rm ? [0, 0, 0, 0] : [0, 1300, 2500, 3500];
-  ['s1', 's2', 's3', 's4'].forEach((cls, i) => setTimeout(() => gate.classList.add(cls), at[i]));
-  if (C.music) {   // the tap on the seal is the user gesture browsers require for audio
+  if (gate.classList.contains('open')) return;
+  gate.classList.add('open');
+  document.body.classList.add('revealing');
+  window.scrollTo(0, 0);
+  setTimeout(() => document.body.classList.add('revealed'), rm ? 0 : 3000);
+  setTimeout(() => {
+    document.body.classList.remove('locked');
+    gate.remove();
+    $('#floralGate').remove();
+  }, rm ? 300 : 4000);
+  if (C.music) {   // the tap is the user gesture browsers require for audio
     audio.src = C.music;
     musicBtn.hidden = false;
     audio.play().catch(() => {});
   }
 }
-function enterSite() {
-  gate.classList.add('leave');
-  window.scrollTo(0, 0);
-  setTimeout(() => document.body.classList.add('revealed'), rm ? 0 : 500);
-  setTimeout(() => { document.body.classList.remove('locked'); gate.remove(); }, rm ? 250 : 1100);
-}
-$('#seal').addEventListener('click', openInvite);
-$('#enter').addEventListener('click', enterSite);
+$('#open').addEventListener('click', openInvite);
 musicBtn.addEventListener('click', () => (audio.paused ? audio.play() : audio.pause()));
 audio.addEventListener('play', () => { musicBtn.classList.add('playing'); musicBtn.ariaLabel = 'Musiqini dayandır'; });
 audio.addEventListener('pause', () => { musicBtn.classList.remove('playing'); musicBtn.ariaLabel = 'Musiqini aç'; });
 
 // ---- Petals ----
-// ponytail: 14 CSS-animated spans; canvas only if you want hundreds
+// ponytail: 14 CSS-animated imgs; canvas only if you want hundreds
 const petals = $('.petals');
 for (let i = 0; i < 14; i++) {
-  const p = document.createElement('span');
-  const size = 9 + Math.random() * 9;
+  const p = document.createElement('img');
+  p.src = `assets/petal-${1 + (i % 6)}.webp`;
+  p.alt = '';
+  const size = 14 + Math.random() * 14;
   Object.assign(p.style, {
     left: `${Math.random() * 100}%`,
-    width: `${size}px`, height: `${size * 0.8}px`,
+    width: `${size}px`,
     animationDuration: `${10 + Math.random() * 9}s`,
     animationDelay: `${-Math.random() * 18}s`,
   });
@@ -95,7 +93,7 @@ const cells = ['B.e', 'Ç.a', 'Ç', 'C.a', 'C', 'Ş', 'B'].map((d) => `<span cla
 for (let i = 0; i < firstDow; i++) cells.push('<span></span>');
 for (let d = 1; d <= daysInMonth; d++) {
   cells.push(d === dd
-    ? `<span class="the-day">${d}<img src="assets/date-circle.webp" alt=""></span>`
+    ? `<span class="the-day">${d}<svg viewBox="0 0 60 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M44 9C33 2 12 6 7 24c-4 16 8 30 25 29 17-1 25-14 22-29-2-9-10-14-20-14"/></svg></span>`
     : `<span>${d}</span>`);
 }
 $('#cal').innerHTML = cells.join('');
@@ -111,7 +109,7 @@ function set(id, v) {
 function tick() {
   const ms = start - Date.now();
   if (ms <= 0) {
-    $('#timer').outerHTML = '<p class="verse" style="margin:0 auto 40px">Biz artıq ailəyik! Sevincimizi bizimlə bölüşdüyünüz üçün təşəkkür edirik.</p>';
+    $('#timer').outerHTML = '<p class="verse" style="margin:0 auto">Biz artıq ailəyik! Sevincimizi bizimlə bölüşdüyünüz üçün təşəkkür edirik.</p>';
     return clearInterval(timer);
   }
   set('#d', Math.floor(ms / 864e5));
