@@ -18,12 +18,9 @@
 
 <script>
 // ===== EDIT ONLY THIS BLOCK =====
-const U = (id, w, h) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&h=${h}&q=75`;
 const CONFIG = {
   bride: 'Jamila',
   groom: 'Hidayat',
-  brideParents: '',             // e.g. '… ailəsinin qızı', '' to hide
-  groomParents: '',             // e.g. '… ailəsinin oğlu', '' to hide
   date: '2027-05-15T18:00:00+04:00',   // ISO, with your timezone offset
   timeZone: 'Asia/Baku',
   greeting: 'İki ürək, bir əhd. Əbədiyyətimizin başladığı bu xoşbəxt günü bizimlə birlikdə qeyd etməyə sizi böyük sevinclə dəvət edirik.',
@@ -32,11 +29,6 @@ const CONFIG = {
   ],
   mapQuery: 'Elux Events Hall, Baku',  // what you'd type into Google Maps (not shown to guests)
   closing: 'Sizin iştirakınız bizim üçün ən gözəl hədiyyədir. Bu xoşbəxt günü sizinlə birlikdə qeyd etməyi səbirsizliklə gözləyirik.',
-  // STOCK PLACEHOLDERS (Unsplash). Replace with your own, e.g. 'assets/groom.jpg'; '' hides the portrait
-  photos: {
-    groom: U('1445117627052-274425469152', 700, 700),
-    bride: U('1595467959776-8acfb0dc313f', 700, 700),
-  },
   music: '',                            // e.g. 'assets/music.mp3'
 };
 </script>
@@ -94,26 +86,6 @@ const CONFIG = {
     <section class="greeting">
       <img class="spray" src="assets/florals-spray.webp" alt="" loading="lazy">
       <p class="verse" id="verse" data-c="greeting"></p>
-    </section>
-
-    <!-- Couple -->
-    <section class="couple">
-      <h2 class="title">Bəy və gəlin</h2>
-      <figure class="person">
-        <div class="portrait wreathed">
-          <div class="photo"><img data-photo="groom" alt="Bəyin yaxasına ağ butonyerka taxılır" loading="lazy"></div>
-          <img class="wreath-art" src="assets/wreath.webp" alt="" loading="lazy">
-        </div>
-        <figcaption><span data-c="groom"></span><small data-c="groomParents"></small></figcaption>
-      </figure>
-      <p class="couple-amp" aria-hidden="true">&amp;</p>
-      <figure class="person">
-        <div class="portrait wreathed">
-          <div class="photo"><img data-photo="bride" alt="Ağ çiçək və evkalipt buketi tutan gəlin" loading="lazy"></div>
-          <img class="wreath-art" src="assets/wreath.webp" alt="" loading="lazy">
-        </div>
-        <figcaption><span data-c="bride"></span><small data-c="brideParents"></small></figcaption>
-      </figure>
     </section>
 
     <!-- Date -->

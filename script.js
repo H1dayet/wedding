@@ -24,10 +24,6 @@ document.querySelectorAll('[data-c]').forEach((el) => {
   const v = text[el.dataset.c];
   if (v) el.textContent = v; else el.remove();
 });
-document.querySelectorAll('img[data-photo]').forEach((img) => {
-  const src = C.photos[img.dataset.photo];
-  if (src) img.src = src; else (img.closest('figure') || img).remove();
-});
 
 const guest = new URLSearchParams(location.search).get('to');
 if (guest) $('#guest').textContent = guest.slice(0, 60);

@@ -160,20 +160,8 @@ body:not(.revealed) .hero-text { visibility: hidden; }   /* written in after the
 .verse { max-width: 30ch; margin: 18px auto 0; font-size: 1.4rem; line-height: 1.55; font-style: italic; text-wrap: pretty; }
 .verse .w { display: inline-block; }
 
-/* ---------- Couple: portraits inside the wreath ---------- */
-.couple .title { margin-bottom: 18px; }
-.person { margin: 0; }
-.wreathed { position: relative; width: min(84%, 340px); aspect-ratio: 930 / 917; margin: 0 auto; }
-.wreathed .photo { position: absolute; inset: 19% 20% 21% 19%; border-radius: 50%; overflow: hidden; background: var(--ivory-2); box-shadow: 0 10px 30px -10px oklch(0.26 0.035 165 / .4); }
-.wreathed .photo img { width: 100%; height: 100%; object-fit: cover; }
-.wreathed .wreath-art { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.person figcaption { margin-top: 2px; }
-.person figcaption span { display: block; font: 400 3rem/1.1 var(--script); color: var(--green-700); }
-.person figcaption small { display: block; margin-top: 4px; font-size: .95rem; font-style: italic; color: var(--ink-2); }
-.couple-amp { margin: 22px 0; font: italic 400 2.4rem/1 var(--serif); color: var(--rose); }
-
 /* ---------- Date: emerald band ---------- */
-.date { background: oklch(0.27 0.045 165 / .93); color: var(--ivory); margin: 40px 0; }
+.date { background: oklch(0.27 0.045 165 / .93); color: var(--ivory); margin: 72px 0 40px; }
 .date .title { color: var(--blush); }
 .cal { max-width: 300px; margin: 18px auto 44px; }
 .cal-head { font-size: .8rem; letter-spacing: .35em; text-transform: uppercase; color: var(--mist); margin-bottom: 16px; padding-left: .35em; }
@@ -235,8 +223,6 @@ footer { position: relative; padding: 22px; text-align: center; font-size: .72re
     .hero-text { animation: fade-up linear both; animation-timeline: view(); animation-range: exit 0% exit 70%; }
     .closing-fg { animation: fg-settle linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
     .closing-wreath { animation: bloom linear both; animation-timeline: view(); animation-range: entry 20% entry 100%; }
-    .wreathed { animation: bloom linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
-    .wreathed .photo img { animation: drift linear both; animation-timeline: view(); }
     .verse .w { animation: word linear both; animation-timeline: view(); animation-range: cover calc(var(--i) * 1.4%) cover calc(18% + var(--i) * 1.4%); }
     .spray, .title { animation: grow-center linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
     .the-day path { stroke-dasharray: 1; animation: draw linear both; animation-timeline: view(); animation-range: entry 40% cover 55%; }
@@ -248,7 +234,6 @@ footer { position: relative; padding: 22px; text-align: center; font-size: .72re
 @keyframes swag-lift { to { transform: translateY(-40%); opacity: .2; } }
 @keyframes fade-up { to { transform: translateY(-60px); opacity: 0; } }
 @keyframes bloom { from { scale: .78; opacity: .1; rotate: -8deg; } to { scale: 1; opacity: 1; rotate: 0deg; } }
-@keyframes drift { from { transform: scale(1.15) translateY(-5%); } to { transform: scale(1.15) translateY(5%); } }
 @keyframes word { from { opacity: .12; filter: blur(3px); } to { opacity: 1; filter: none; } }
 @keyframes grow-center { from { clip-path: inset(0 50% 0 50%); opacity: 0; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
 @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
