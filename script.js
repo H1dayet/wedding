@@ -19,6 +19,8 @@ const text = {
   dateDots: `${pad(dd)} · ${pad(mo)} · ${y}`,
   dateLong: `${cap(weekday)}, ${dd} ${MONTHS[mo - 1]} ${y}`,
   monthYear: `${MONTHS[mo - 1]} ${y}`,
+  // "Elux Events Hall · Bakı": venue + city (first part of the address)
+  venueShort: C.events[0] ? [C.events[0].place, (C.events[0].address || '').split(',')[0]].filter(Boolean).join(' · ') : '',
 };
 document.querySelectorAll('[data-c]').forEach((el) => {
   const v = text[el.dataset.c];

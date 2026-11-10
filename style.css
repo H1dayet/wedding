@@ -124,19 +124,21 @@ section { position: relative; padding: 88px 26px; text-align: center; }
 /* ---------- Hero: the garden itself ---------- */
 .hero { height: 100svh; min-height: 620px; padding: 0; z-index: 2; }
 .hero-swag { position: absolute; top: -3%; left: 50%; width: 122%; max-width: none; translate: -50% 0; }
-.hero-text { position: relative; padding-top: max(19svh, 140px); }
+.hero-text { position: relative; padding-top: clamp(104px, 17svh, 170px); }
 body:not(.revealed) .hero-text { visibility: hidden; }   /* written in after the opening, not glimpsed through the curtains */
 .kicker { font-size: .88rem; font-weight: 600; letter-spacing: .34em; text-transform: uppercase; color: var(--rose); padding-left: .34em; }
-.names { display: flex; flex-direction: column; font: 400 clamp(3.7rem, 19vw, 5.2rem)/1 var(--script); color: var(--green-700); margin-top: 6px; }
+.names { display: flex; flex-direction: column; font: 400 clamp(3.3rem, min(19vw, 9.6svh), 5.2rem)/1 var(--script); color: var(--green-700); margin-top: 6px; }
 .names .n1, .names .n2 { display: block; padding: .1em .35em .18em; }
 .names .amp { font: italic 400 .36em/1.3 var(--serif); color: var(--rose); }
 /* frosted ivory pill: stays readable wherever it lands on the trees and pavilion */
 .hero-date {
-  display: inline-block; margin-top: 10px; padding: 7px 20px; border-radius: 999px;
-  font-size: 1.25rem; font-weight: 600; font-style: italic; color: var(--rose);
-  background: oklch(0.975 0.006 150 / .78); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  display: inline-flex; flex-direction: column; align-items: center; gap: 3px;
+  margin-top: 10px; padding: 8px 22px 9px; border-radius: 22px;
+  font-size: 1.25rem; line-height: 1.25; font-weight: 600; font-style: italic; color: var(--rose);
+  background: oklch(0.975 0.006 150 / .8); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   box-shadow: 0 6px 18px -8px oklch(0.26 0.035 165 / .35);
 }
+.hero-venue { font-size: .74rem; font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: var(--green-700); padding-left: .2em; }
 /* overlaps into the next section; its straight cut-off bottom edge fades out so it never shows as a band */
 .hero-fg {
   position: absolute; bottom: -90px; left: 50%; width: 150%; max-width: none; translate: -50% 0; pointer-events: none;
