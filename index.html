@@ -14,7 +14,7 @@
 <link rel="preload" as="image" href="assets/wreath.webp">
 <link rel="preload" as="image" href="assets/swag-florals.webp">
 <link rel="preload" as="image" href="assets/scene-garden-couple.webp">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=6"><!-- bump ?v= on every change so phones skip their cached copy -->
 
 <script>
 // ===== EDIT ONLY THIS BLOCK =====
@@ -29,7 +29,7 @@ const CONFIG = {
   ],
   mapQuery: 'Elux Events Hall, Baku',  // what you'd type into Google Maps (not shown to guests)
   closing: 'Sizin iştirakınız bizim üçün ən gözəl hədiyyədir. Bu xoşbəxt günü sizinlə birlikdə qeyd etməyi səbirsizliklə gözləyirik.',
-  music: '',                            // e.g. 'assets/music.mp3'
+  music: 'assets/music.mp3',            // '' for no music
 };
 </script>
 </head>
@@ -133,6 +133,6 @@ const CONFIG = {
 </button>
 <audio id="audio" loop preload="none"></audio>
 
-<script src="script.js"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>

@@ -55,6 +55,7 @@ function openInvite() {
   }, rm ? 300 : 4000);
   if (C.music) {   // the tap is the user gesture browsers require for audio
     audio.src = C.music;
+    audio.volume = 0.7;
     musicBtn.hidden = false;
     audio.play().catch(() => {});
   }
